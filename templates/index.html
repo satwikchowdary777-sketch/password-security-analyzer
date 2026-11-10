@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Security Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">🔐 SecureCheck</div>
+        <span class="local-label">LOCAL ANALYSIS</span>
+    </header>
+
+    <main class="container">
+        <p class="eyebrow">PASSWORD SECURITY TOOL</p>
+        <h1>How secure is your password?</h1>
+        <p class="subtitle">
+            Check password strength and learn how to improve it.
+            Analysis happens in your browser.
+        </p>
+
+        <section class="card">
+            <label for="password">Enter a sample password</label>
+
+            <div class="password-row">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Type a sample password..."
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+                <button type="button" id="togglePassword"
+                        class="show-btn">Show</button>
+            </div>
+
+            <div class="meter-heading">
+                <span>Strength</span>
+                <span id="strengthText">Not checked</span>
+            </div>
+
+            <div class="meter">
+                <div id="strengthBar"></div>
+            </div>
+
+            <p id="summary" class="summary" aria-live="polite">
+                Enter a sample password to begin.
+            </p>
+
+            <h2>Security checklist</h2>
+            <ul class="checklist">
+                <li id="lengthCheck">○ At least 12 characters</li>
+                <li id="upperCheck">○ Contains an uppercase letter</li>
+                <li id="lowerCheck">○ Contains a lowercase letter</li>
+                <li id="numberCheck">○ Contains a number</li>
+                <li id="symbolCheck">○ Contains a symbol</li>
+            </ul>
+
+            <div class="tips">
+                <h2>How to improve it</h2>
+                <p id="tipsText">
+                    Your personalized suggestions will appear here.
+                </p>
+            </div>
+
+            <button type="button" id="clearButton" class="clear-btn">
+                Clear password
+            </button>
+        </section>
+
+<section class="card hash-card">
+    <p class="eyebrow">LEARN CRYPTOGRAPHY</p>
+    <h2>Password Hashing Demo</h2>
+
+    <p class="subtitle">
+        See how SHA-256 transforms sample text into a fixed-length hash.
+    </p>
+
+    <label for="hashInput">First sample text</label>
+    <input
+        type="text"
+        id="hashInput"
+        placeholder="Enter sample text"
+        autocomplete="off"
+    >
+
+    <label for="hashInput2" style="margin-top: 20px;">
+        Second sample text
+    </label>
+    <input
+        type="text"
+        id="hashInput2"
+        placeholder="Change one character to compare"
+        autocomplete="off"
+    >
+
+    <button type="button" id="hashButton" class="clear-btn">
+        Generate SHA-256 Hashes
+    </button>
+
+    <p id="hashStatus" aria-live="polite">
+        Enter sample text in either field to begin.
+    </p>
+
+    <h3>First hash</h3>
+    <div id="hashOutput" class="hash-output">
+        Your first hash will appear here.
+    </div>
+
+    <h3>Second hash</h3>
+    <div id="hashOutput2" class="hash-output">
+        Your second hash will appear here.
+    </div>
+
+    <h3>Comparison</h3>
+    <p id="hashComparison" aria-live="polite">
+        Generate both hashes to compare them.
+    </p>
+
+<section class="card sha-simulator">
+    <h2>SHA-256: Step-by-Step Simulation</h2>
+    <p>Explore how your text becomes a 256-bit hash.</p>
+
+    <label for="shaStepInput">Sample text</label>
+    <input id="shaStepInput" type="text"
+           value="hello" placeholder="Enter sample text">
+
+    <button id="shaStartButton" type="button">
+        Start Simulation
+    </button>
+
+    <div class="sha-progress">
+        <div id="shaProgressBar"></div>
+    </div>
+
+    <p id="shaStepCounter">Step 1 of 6</p>
+    <h3 id="shaStepTitle">1. Input text</h3>
+    <p id="shaStepDescription"></p>
+
+    <h4>Step details</h4>
+    <pre id="shaStepDetails"></pre>
+
+    <div class="sha-navigation">
+        <button id="shaPrevious" type="button" disabled>
+            Previous
+        </button>
+        <button id="shaNext" type="button">
+            Next
+        </button>
+    </div>
+
+    <h3>Final SHA-256 digest</h3>
+    <pre id="shaFinalHash">Run the simulation to generate a hash.</pre>
+
+    <p class="privacy-note">
+        This educational simulator processes sample text in your browser.
+        Intermediate steps are simplified for learning; the final digest
+        is generated using the browser's SHA-256 implementation.
+    </p>
+</section>
+
+    <p class="privacy-note">
+        Educational demo only. SHA-256 is a general-purpose hash,
+        not a recommended password-storage algorithm.
+    </p>
+</section>
+
+        <p class="privacy-note">
+            For learning, use sample passwords only. This tool analyzes
+            your input in your browser and does not send it to the server.
+        </p>
+    </main>
+
+    <footer>
+    
+<section class="card">
+    <h2>Password Guessing-Time Estimate</h2>
+
+    <label for="guessRate">Assumed guessing speed</label>
+    <select id="guessRate">
+        <option value="1000">1,000 guesses/second</option>
+        <option value="1000000">1 million guesses/second</option>
+        <option value="1000000000">1 billion guesses/second</option>
+    </select>
+
+    <p id="crackTimeEstimate">
+        Enter a sample password to see an estimate.
+    </p>
+
+    <p>
+        Educational estimate only. Actual results depend on the
+        password, hash algorithm, hardware, and attack method.
+    </p>
+</section>
+
+
+<section class="card simulation-card" id="policySimulation">
+    <h2>Two Conditions vs. Five Conditions</h2>
+
+    <p>
+        Test how two example password policies compare with a
+        five-requirement policy.
+    </p>
+
+    <label for="simPassword">Enter a sample password</label>
+    <input
+        id="simPassword"
+        type="password"
+        placeholder="Type a sample password"
+        autocomplete="off"
+    >
+
+    <label class="sim-show-label">
+        <input id="simShowPassword" type="checkbox">
+        Show sample password
+    </label>
+
+    <div class="simulation-checks">
+        <h3>Five password requirements</h3>
+        <div id="simLength">○ At least 12 characters</div>
+        <div id="simUpper">○ Contains an uppercase letter (A–Z)</div>
+        <div id="simLower">○ Contains a lowercase letter (a–z)</div>
+        <div id="simNumber">○ Contains a number (0–9)</div>
+        <div id="simSymbol">○ Contains a special character</div>
+    </div>
+
+    <div class="simulation-columns">
+        <article class="simulation-result">
+            <h3>Two-condition policy</h3>
+            <p>At least 12 characters + letters only</p>
+            <strong id="simTwoStatus">Waiting for input</strong>
+            <p>Estimated possibilities:</p>
+            <div id="simTwoSpace" class="sim-number">—</div>
+            <p id="simTwoExplanation">
+                Enter a sample to see the result.
+            </p>
+        </article>
+
+        <article class="simulation-result">
+            <h3>Five-requirement policy</h3>
+            <p>Length + uppercase + lowercase + number + symbol</p>
+            <strong id="simFiveStatus">Waiting for input</strong>
+            <p>Estimated possibilities:</p>
+            <div id="simFiveSpace" class="sim-number">—</div>
+            <p id="simFiveExplanation">
+                Enter a sample to see the result.
+            </p>
+        </article>
+    </div>
+
+    <h3>What does this mean?</h3>
+    <p id="simMeaning" aria-live="polite">
+        Type a sample password to compare the two policies.
+    </p>
+
+    <p class="privacy-note">
+        Educational estimate only. Sample text is processed in your
+        browser by this simulator. Use fictional passwords, not your
+        real account passwords. Actual security depends on length,
+        unpredictability, reuse, and how passwords are stored.
+    </p>
+</section>
+
+
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='hash.js') }}"></script>
+    <script src="{{ url_for('static', filename='sha256-steps.js') }}"></script>
+    <script src="{{ url_for('static', filename='simulation.js') }}"></script>
+    <script src="{{ url_for('static', filename='simulation.js') }}"></script>
+</body>
+</html>
+    
